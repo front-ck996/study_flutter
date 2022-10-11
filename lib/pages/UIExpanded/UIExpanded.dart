@@ -16,15 +16,21 @@ class _UIExpandedState extends State<UIExpanded> {
       appBar: AppBar(
         title: Text('商品列表'),
       ),
-      body: Expanded(
-        flex: 1,
-        child: InkWell(
-          onTap: (){
-            _scaffoldKey.currentState?.openEndDrawer();
-          },
-          child: Text('赛选', textAlign:  TextAlign.center),
-        ),
-      ),
+      body: Row(
+        children: [
+          Text('124'),
+          Expanded(
+            flex: 1,
+            child: InkWell(
+              onTap: (){
+                _scaffoldKey.currentState?.openDrawer();
+              },
+              child: Text('赛选', textAlign:  TextAlign.center),
+            ),
+          ),
+        ],
+      )
+
     );
   }
 }
