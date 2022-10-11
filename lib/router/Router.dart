@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_flutter/pages/page1/Page1.dart';
+import 'package:study_flutter/pages/plugScreenutil/PlugScreenUntil.dart';
 import 'package:study_flutter/untils/GlobalNav.dart';
 
 class CustomRouter extends StatelessWidget {
@@ -8,6 +9,7 @@ class CustomRouter extends StatelessWidget {
   // 定义路由表
   static final routers = {
     '/form': (context, {arguments}) => FormPage(arguments: arguments),
+    '/plug-screen-until': (context) => const PlugScreenUntil(),
   };
 
   // 路由中间处理
