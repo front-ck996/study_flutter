@@ -90,6 +90,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 CustomRouter.push(route: '/plug-screen-until');
               },
             ),
+            GestureDetector(
+              child: Text(
+                '测试展开菜单',
+              ),
+              onTap: () {
+                CustomRouter.push(route: '/UIExpanded');
+              },
+            ),
           ],
         ));
   }

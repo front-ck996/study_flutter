@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_flutter/pages/UIExpanded/UIExpanded.dart';
 import 'package:study_flutter/pages/page1/Page1.dart';
 import 'package:study_flutter/pages/plugScreenutil/PlugScreenUntil.dart';
 import 'package:study_flutter/untils/GlobalNav.dart';
@@ -10,6 +11,7 @@ class CustomRouter extends StatelessWidget {
   static final routers = {
     '/form': (context, {arguments}) => FormPage(arguments: arguments),
     '/plug-screen-until': (context) => const PlugScreenUntil(),
+    '/UIExpanded': (context) => const UIExpanded(),
   };
 
   // 路由中间处理
