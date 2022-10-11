@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-class AppGlobalKey {
+class CustomGlobalKey {
   static GlobalKey<NavigatorState> navigatorKey=GlobalKey();
 
   // 获取当前上下文

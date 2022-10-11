@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_flutter/router/Router.dart';
+import 'package:study_flutter/untils/GlobalNav.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      routes: CustomRouter.routers,
-      onGenerateRoute: (RouteSettings settings) => CustomRouter.onGenerateRoute(settings),
+      navigatorKey: CustomGlobalKey.navigatorKey,
+      onGenerateRoute:(RouteSettings settings) => CustomRouter.onGenerateRoute(settings),
+
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -53,7 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: (){
               Navigator.pushNamed(context, '/form',arguments: { "id":20 });
             },
-          )
+          ),
+          GestureDetector(
+            child:Text('测试无 context 跳转',),
+            onTap: (){
+              CustomRouter.push(route: '/form', arguments: {'id':30});
+            },
+          ),
         ],
       )
     );
