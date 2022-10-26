@@ -1,104 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_flutter/router/Router.dart';
-import 'package:study_flutter/untils/GlobalNav.dart';
+import 'package:study_flutter/myMiddle/myDiddle.dart';
+import 'package:study_flutter/myMiddle/myNavigatorObservers.dart';
+
+import 'package:study_flutter/route/route.dart';
+import 'package:get/get.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  static GlobalKey movieAppKey = GlobalKey();
+  final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      // 设计稿中设备的尺寸
-      designSize: const Size(360, 690),
-      // 是否根据宽度/高度中的最小值适配文字
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          navigatorKey: CustomGlobalKey.navigatorKey,
-          onGenerateRoute: (RouteSettings settings) => CustomRouter.onGenerateRoute(settings),
-          theme: ThemeData(
-              primarySwatch: Colors.blue,
-          ),
-          // builder: MediaQuery(
-          //   ///设置文字大小不随系统设置改变
-          //   data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          //   child: Container(),
-          // ),
-          home: child,
-        );
-      },
-      child: const MyHomePage(title: 'First Method'),
+    return GetMaterialApp.router(
+      getPages: ExampleRoute.pages,
+      defaultTransition: Transition.rightToLeft,
+      routeInformationParser: Get.put(GetInformationParser(
+        initialRoute: '/t01'
+      )),
+      routerDelegate: Get.put(GetDelegate(
+        backButtonPopMode: PopMode.History,
+        preventDuplicateHandlingMode: PreventDuplicateHandlingMode.ReorderRoutes
+      )),
     );
+
+    // return GetMaterialApp(
+    //   getPages: ExampleRoute.pages,
+    //   initialRoute: '/t01',
+    //   builder: (BuildContext context, Widget? child) {
+    //
+    //   },
+    //
+    //   // routerDelegate: GetDelegate(
+    //   //   backButtonPopMode: PopMode.History,
+    //   //   preventDuplicateHandlingMode:
+    //   //       PreventDuplicateHandlingMode.ReorderRoutes,
+    //   // ),
+    // );
+
+    // return GetMaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   getPages: ExampleRoute.pages,
+    //   initialRoute: '/t01',
+    //   defaultTransition: Transition.cupertino,
+    //
+    //   onGenerateRoute: (RouteSettings settings){
+    //     print('settings$settings');
+    //   },
+    //   navigatorObservers: [
+    //     myNavigatorObservers(),
+    //   ],
+    //   // routeInformationParser: GetInformationParser(
+    //   //   initialRoute: '/t01'
+    //   // ),
+    //   // routerDelegate: GetDelegate(
+    //   //   backButtonPopMode:  PopMode.History,
+    //   //   preventDuplicateHandlingMode: PreventDuplicateHandlingMode.ReorderRoutes
+    //   // ),
+    // );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class C {
+  String? a;
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: ListView(
-          children: [
-            GestureDetector(
-              child: Text(
-                '跳转到page1',
-              ),
-              onTap: () {
-                Navigator.pushNamed(context, '/form', arguments: {"id": 20});
-              },
-            ),
-            GestureDetector(
-              child: Text(
-                '测试无 context 跳转',
-              ),
-              onTap: () {
-                CustomRouter.push(route: '/form', arguments: {'id': 30});
-              },
-            ),
-            GestureDetector(
-              child: Text(
-                '测试自适应',
-              ),
-              onTap: () {
-                CustomRouter.push(route: '/plug-screen-until');
-              },
-            ),
-            GestureDetector(
-              child: Text(
-                '测试展开菜单',
-              ),
-              onTap: () {
-                CustomRouter.push(route: '/UIExpanded');
-              },
-            ),
-          ],
-        ));
+  C.formJSON(argments) {
+    a = argments['a'];
   }
 }
