@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 
 class HomeLogic extends GetxController {
+
+  var openExpandTile = false.obs;
+
   @override
   void onReady() {
     // TODO: implement onReady

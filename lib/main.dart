@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       getPages: ExampleRoute.toolPages,
       defaultTransition: Transition.leftToRight,
       routeInformationParser: Get.put(GetInformationParser(
-        initialRoute: ExampleRoute.home.path
+        initialRoute: ExampleRoute.pageHome
       )),
       routerDelegate: Get.put(GetDelegate(
         backButtonPopMode: PopMode.History,
