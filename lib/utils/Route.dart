@@ -5,11 +5,16 @@ import 'package:get/get.dart';
 
 class CKRoute{
 
-  toNamed(String page,dynamic arguments){
-    Get.rootDelegate.toNamed(page,arguments: arguments);
+
+  static Future<T> toNamed<T>(String page,dynamic arguments){
+   return Get.rootDelegate.toNamed(page,arguments: arguments);
   }
 
-  offAndToNamed(String page,dynamic arguments){
+  static Future<GetNavConfig?>  back(){
+    return Get.rootDelegate.popHistory();
+  }
+
+  static offAndToNamed(String page,dynamic arguments){
     Get.rootDelegate.offAndToNamed(page,arguments: arguments);
   }
 
