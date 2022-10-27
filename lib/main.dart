@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp.router(
-      getPages: ExampleRoute.pages,
+      getPages: ExampleRoute.toolPages,
       defaultTransition: Transition.leftToRight,
       routeInformationParser: Get.put(GetInformationParser(
-        initialRoute: '/t01'
+        initialRoute: ExampleRoute.home.path
       )),
       routerDelegate: Get.put(GetDelegate(
         backButtonPopMode: PopMode.History,
