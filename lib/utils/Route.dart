@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class CKRoute{
 
 
-  static Future<T> toNamed<T>(String page,dynamic arguments){
+  static Future<T> toNamed<T>(String page,{dynamic arguments}){
    return Get.rootDelegate.toNamed(page,arguments: arguments);
   }
 
@@ -37,6 +37,7 @@ class CKRoute{
       return closeList.contains(element.location);
     });
   }
+
   closeHistoryLast(){
     Get.rootDelegate.history.removeLast();
   }
