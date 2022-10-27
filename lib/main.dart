@@ -27,48 +27,5 @@ class MyApp extends StatelessWidget {
         preventDuplicateHandlingMode: PreventDuplicateHandlingMode.ReorderRoutes
       )),
     );
-
-    // return GetMaterialApp(
-    //   getPages: ExampleRoute.pages,
-    //   initialRoute: '/t01',
-    //   builder: (BuildContext context, Widget? child) {
-    //
-    //   },
-    //
-    //   // routerDelegate: GetDelegate(
-    //   //   backButtonPopMode: PopMode.History,
-    //   //   preventDuplicateHandlingMode:
-    //   //       PreventDuplicateHandlingMode.ReorderRoutes,
-    //   // ),
-    // );
-
-    // return GetMaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   getPages: ExampleRoute.pages,
-    //   initialRoute: '/t01',
-    //   defaultTransition: Transition.cupertino,
-    //
-    //   onGenerateRoute: (RouteSettings settings){
-    //     print('settings$settings');
-    //   },
-    //   navigatorObservers: [
-    //     myNavigatorObservers(),
-    //   ],
-    //   // routeInformationParser: GetInformationParser(
-    //   //   initialRoute: '/t01'
-    //   // ),
-    //   // routerDelegate: GetDelegate(
-    //   //   backButtonPopMode:  PopMode.History,
-    //   //   preventDuplicateHandlingMode: PreventDuplicateHandlingMode.ReorderRoutes
-    //   // ),
-    // );
-  }
-}
-
-class C {
-  String? a;
-
-  C.formJSON(argments) {
-    a = argments['a'];
   }
 }
