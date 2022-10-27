@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp.router(
       getPages: ExampleRoute.pages,
-      defaultTransition: Transition.rightToLeft,
+      defaultTransition: Transition.leftToRight,
       routeInformationParser: Get.put(GetInformationParser(
         initialRoute: '/t01'
       )),
