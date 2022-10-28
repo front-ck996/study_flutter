@@ -6,6 +6,7 @@ import 'dart:math';
 import '../components/AppBar.dart';
 
 import '../components/DrawerTreeMenu.dart';
+import '../components/CKExpansionPanelList.dart';
 import 'logic.dart';
 
 class HomePage extends StatelessWidget {
@@ -54,9 +55,19 @@ class HomePage extends StatelessWidget {
                 print('click');
               },
               child: Text('按钮'),
-
             ),
-            DrawerTreeMenu(wList: ExampleRoute.toolPages[0].children)
+            DrawerTreeMenu(wList: ExampleRoute.toolPages[0].children),
+            AnimatedContainer(duration: Duration(),),
+            // CKExpansionPanelList(
+            //   children: [
+            //    CKExpansionPanel(
+            //      headerBuilder: (BuildContext context, bool isExpanded){
+            //       return Container(child: Text('hellp'),);
+            //      },
+            //      body: Container()
+            //    )
+            //   ],
+            // )
           ],
         )
       ),

@@ -25,7 +25,9 @@ class ExampleRoute {
       children: [
         GetPage(title: '文字工具', name: pageTextTool, page: () => Container(),
           children: [
-            GetPage(title: '大小写转换' ,name:pageTextToolCaseBigSmallConversion, page: () => TextToolCaseBigSmallConversionPage(), binding: TextToolCaseBigSmallConversionBinding())
+            GetPage(title: '大小写转换1' ,name:pageTextToolCaseBigSmallConversion, page: () => TextToolCaseBigSmallConversionPage(), binding: TextToolCaseBigSmallConversionBinding()),
+            GetPage(title: '大小写转换2' ,name:pageTextToolCaseBigSmallConversion, page: () => TextToolCaseBigSmallConversionPage(), binding: TextToolCaseBigSmallConversionBinding()),
+            GetPage(title: '大小写转换3' ,name:pageTextToolCaseBigSmallConversion, page: () => TextToolCaseBigSmallConversionPage(), binding: TextToolCaseBigSmallConversionBinding()),
           ]
         )
       ]
