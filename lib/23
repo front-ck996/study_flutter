@@ -10,3 +10,6 @@ AutomaticKeepAliveClientMixin
 IndexStack
 
 https://javiercbk.github.io/json_to_dart/
+
+
+flutter emulators --launch Pixel_2_API_29
