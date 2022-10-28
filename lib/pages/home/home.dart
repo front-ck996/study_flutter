@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
       appBar: AppBar(title: Text('1233'),),
       body: TextButton(
         onPressed: (){
-          Get.toNamed(APPRouter.pageMaterialAboutDialog);
+          Get.toNamed(APPRouter.pageCupertino);
         },
         child: Text('12'),
       ),
