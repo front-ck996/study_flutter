@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:study_flutter/router/Router.dart';
+import 'package:get/get.dart';
+import 'package:study_flutter/router/app_router.dart';
 import 'package:study_flutter/untils/GlobalNav.dart';
 
 void main() {
@@ -20,85 +21,18 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          navigatorKey: CustomGlobalKey.navigatorKey,
-          onGenerateRoute: (RouteSettings settings) => CustomRouter.onGenerateRoute(settings),
-          theme: ThemeData(
-              primarySwatch: Colors.blue,
-          ),
-          // builder: MediaQuery(
-          //   ///设置文字大小不随系统设置改变
-          //   data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          //   child: Container(),
-          // ),
-          home: child,
+        return GetMaterialApp.router(
+          getPages: APPRouter.toolPages,
+          defaultTransition: Transition.leftToRight,
+          routeInformationParser: Get.put(GetInformationParser(
+              initialRoute: APPRouter.pageHome
+          )),
+          routerDelegate: Get.put(GetDelegate(
+              backButtonPopMode: PopMode.History,
+              preventDuplicateHandlingMode: PreventDuplicateHandlingMode.ReorderRoutes
+          )),
         );
       },
-      child: const MyHomePage(title: 'First Method'),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: ListView(
-          children: [
-            GestureDetector(
-              child: Text(
-                '跳转到page1',
-              ),
-              onTap: () {
-                Navigator.pushNamed(context, '/form', arguments: {"id": 20});
-              },
-            ),
-            GestureDetector(
-              child: Text(
-                '测试无 context 跳转',
-              ),
-              onTap: () {
-                CustomRouter.push(route: '/form', arguments: {'id': 30});
-              },
-            ),
-            GestureDetector(
-              child: Text(
-                '测试自适应',
-              ),
-              onTap: () {
-                CustomRouter.push(route: '/plug-screen-until');
-              },
-            ),
-            GestureDetector(
-              child: Text(
-                '测试展开菜单',
-              ),
-              onTap: () {
-                CustomRouter.push(route: '/UIExpanded');
-              },
-            ),
-          ],
-        ));
   }
 }
