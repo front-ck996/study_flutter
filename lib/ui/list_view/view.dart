@@ -72,6 +72,8 @@ class _UIListViewState extends State<UIListView> {
           widget.data = list;
           if(list.isEmpty){
             widget.status = UIListViewStatus.noData;
+          }else{
+            widget.status = UIListViewStatus.view;
           }
           setState(() {});
         });
@@ -86,20 +88,19 @@ class _UIListViewState extends State<UIListView> {
 
   Widget _item(BuildContext context, int index) {
 
-
     var itemDiv = widget.buildItem(widget.data[index]);
 
     // 数据加载
     if(index == widget.data.length -1 && widget.status == UIListViewStatus.view) {
       widget.status = UIListViewStatus.loading;
       widget.onLoadData(widget.pageNum++).then((List list) {
-        if (list.isEmpty) {
+        if (list.isEmpty || list.length < widget.pageSize) {
           widget.status = UIListViewStatus.noMoreData;
         } else {
           widget.status = UIListViewStatus.view;
           widget.data.addAll(list);
-          setState(() {});
         }
+        setState(() {});
       });
     }
 

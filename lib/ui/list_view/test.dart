@@ -22,7 +22,7 @@ class _UIListViewTestState extends State<UIListViewTest> {
               return [];
             }
             await await Future.delayed(Duration(seconds: 1));
-            return [{},{},{},{}];
+            return   List.generate(10, (index) => {});
           },
           buildItem: (info){
             return Container(
