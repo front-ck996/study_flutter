@@ -10,11 +10,17 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('1233'),),
-      body: TextButton(
-        onPressed: (){
-          Get.toNamed(APPRouter.pageCupertino);
-        },
-        child: Text('12'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: APPRouter.toolPages.map((e) {
+          return GestureDetector(
+            child: Text(e.title!),
+            onTap: (){
+              Get.toNamed(e.name);
+            },
+          );
+        }).toList(),
       ),
     );
   }

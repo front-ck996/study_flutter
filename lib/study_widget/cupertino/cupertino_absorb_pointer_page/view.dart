@@ -10,8 +10,36 @@ class CupertinoAbsorbPointerPagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: <Widget>[
+        SizedBox(
+          width: 200.0,
+          height: 100.0,
+          child: ElevatedButton(
+            onPressed: () {
+              print('ElevatedButton');
+            },
+            child: null,
+          ),
+        ),
+        SizedBox(
+          width: 100.0,
+          height: 200.0,
+          child: AbsorbPointer(
+            child: GestureDetector(
+              onTap: (){
+                print('click');
+              },
+              child: Container(
+                color: Colors.red,
+                child: Container(
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
