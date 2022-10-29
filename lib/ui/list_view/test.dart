@@ -16,9 +16,21 @@ class _UIListViewTestState extends State<UIListViewTest> {
       body: Container(
         color: Colors.blue,
         child: UIListView(
+          pageSize: 10,
           onLoadData: (index) async {
+            if(index > 2){
+              return [];
+            }
             await await Future.delayed(Duration(seconds: 1));
-            return [{},{},{}];
+            return [{},{},{},{}];
+          },
+          buildItem: (info){
+            return Container(
+              height: 50,
+              margin: const EdgeInsets.only(top: 10, bottom: 10),
+              color: Colors.red,
+              child: Text('123'),
+            );
           },
         ),
       ),

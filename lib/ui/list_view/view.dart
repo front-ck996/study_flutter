@@ -9,10 +9,14 @@ enum UIListViewStatus {
 
 
 class UIListView extends StatefulWidget {
-  UIListView({Key? key, required this.onLoadData}) : super(key: key);
+  UIListView({Key? key, required this.onLoadData,required this.buildItem, required this.pageSize}) : super(key: key);
   List data = []; // 内部保存的数据流
   Function onLoadData; // 加载数据的回调
+  Function buildItem;
   int pageNum = 1; //当前页
+  int pageSize = 10;
+  bool enableRefresh = true;
+  Function? onRefresh;
   UIListViewStatus status = UIListViewStatus.waitFirstData;
   @override
   State<UIListView> createState() => _UIListViewState();
@@ -34,6 +38,8 @@ class _UIListViewState extends State<UIListView> {
         if (list.isEmpty){
           widget.status = UIListViewStatus.noData;
           return;
+        }else if(list.length < widget.pageSize){
+          widget.status = UIListViewStatus.noMoreData;
         }
         widget.data.addAll(list);
         setState(() {});
@@ -52,26 +58,44 @@ class _UIListViewState extends State<UIListView> {
     }else if(widget.status == UIListViewStatus.noData || widget.data.isEmpty){
       return Container(child: Text('无数据'),);
     }
-    return RefreshIndicator(
+    Widget scroll = ListView.builder(
+      itemCount: widget.data.length,
+      controller: _scrollController,
+      itemBuilder: _item,
+    );
+
+    return widget.enableRefresh ? RefreshIndicator(
       onRefresh: (){
+        widget.pageNum = 1;
+        widget.status = UIListViewStatus.loading;
+        widget.onLoadData(widget.pageNum).then((List list){
+          widget.data = list;
+          if(list.isEmpty){
+            widget.status = UIListViewStatus.noData;
+          }
+          setState(() {});
+        });
+        if(widget.onRefresh != null){
+          widget.onRefresh!();
+        }
         return Future.delayed(Duration(seconds: 2));
       },
-      child: ListView.builder(
-        itemCount: widget.data.length,
-        controller: _scrollController,
-        itemBuilder: _item,
-      ),
-    );
+      child: scroll
+    ): scroll;
   }
 
   Widget _item(BuildContext context, int index) {
-    if(index == widget.data.length -1 && widget.status == UIListViewStatus.view){
 
+
+    var itemDiv = widget.buildItem(widget.data[index]);
+
+    // 数据加载
+    if(index == widget.data.length -1 && widget.status == UIListViewStatus.view) {
       widget.status = UIListViewStatus.loading;
-      widget.onLoadData(widget.pageNum++).then( (List list) {
-        if(list.isEmpty){
+      widget.onLoadData(widget.pageNum++).then((List list) {
+        if (list.isEmpty) {
           widget.status = UIListViewStatus.noMoreData;
-        }else{
+        } else {
           widget.status = UIListViewStatus.view;
           widget.data.addAll(list);
           setState(() {});
@@ -79,29 +103,26 @@ class _UIListViewState extends State<UIListView> {
       });
     }
 
-    var itemDiv = Container(
-        height: 50,
-        margin: const EdgeInsets.only(top: 10, bottom: 10),
-        color: Colors.red,
-        child: Text(widget.status.toString()),
-    );
-
-    if(widget.status == UIListViewStatus.loading){
-      return Column(
-        children: [
-          itemDiv,
-          Text('加载中'),
-        ],
-      );
+    // 数据渲染
+    if(index == widget.data.length -1){
+      if(widget.status == UIListViewStatus.loading){
+        return Column(
+          children: [
+            itemDiv,
+            Text('加载中'),
+          ],
+        );
+      }else if(widget.status == UIListViewStatus.noMoreData){
+        return Column(
+          children: [
+            itemDiv,
+            Text('没有更多数据了'),
+          ],
+        );
+      }
     }
-    return itemDiv;
 
-    // return Container(
-    //   height: 50,
-    //   margin: const EdgeInsets.only(top: 10, bottom: 10),
-    //   color: Colors.red,
-    //   child: Text(widget.status.toString()),
-    // );
+    return itemDiv;
   }
 
   @override
